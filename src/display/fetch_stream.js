@@ -222,7 +222,7 @@ class PDFFetchStreamRangeReader {
       }
       this._readCapability.resolve();
       this._reader = response.body.getReader();
-    });
+    }).catch(this._readCapability.reject);
 
     this.onProgress = null;
   }
