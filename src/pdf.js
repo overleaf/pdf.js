@@ -32,12 +32,7 @@ let pdfjsDisplayAPICompatibility = require('./display/api_compatibility.js');
 
 if (typeof PDFJSDev === 'undefined' || PDFJSDev.test('GENERIC')) {
   const isNodeJS = require('./shared/is_node.js');
-  if (isNodeJS()) {
-    let PDFNodeStream = require('./display/node_stream.js').PDFNodeStream;
-    pdfjsDisplayAPI.setPDFNetworkStreamFactory((params) => {
-      return new PDFNodeStream(params);
-    });
-  } else {
+  if (!isNodeJS()) {
     let PDFNetworkStream = require('./display/network.js').PDFNetworkStream;
     let PDFFetchStream;
     if (pdfjsDisplayDisplayUtils.isFetchSupported()) {
